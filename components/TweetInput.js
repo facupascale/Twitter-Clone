@@ -27,7 +27,6 @@ export default function TweetInput() {
         id: Math.random().toString(),
         value: inputText,
       };
-      const inputVisible = { visible: false };
       dispatch(addTweet(newTweet));
       dispatch(tweetInvisible(false));
       setInputText("");
