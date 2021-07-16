@@ -8,18 +8,42 @@ import {
   View,
 } from "react-native";
 
-import React from "react";
+import React, { useState } from "react";
 import colors from "../colors/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { addTweet } from "../store/actions/items.actions";
+import { tweetInvisible } from "../store/actions/tweetVisible.actions";
 
-export default function TweetInput({
-  inputText,
-  tweetVisible,
-  handleOnChange,
-  handleAddItem,
-  modalVisible,
-}) {
+export default function TweetInput() {
+  const visible = useSelector((state) => state.visible.visible);
+  const [inputText, setInputText] = useState("");
+  const [inputError, setInputError] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleAddItem = () => {
+    if (inputText) {
+      const newTweet = {
+        id: Math.random().toString(),
+        value: inputText,
+      };
+      const inputVisible = { visible: false };
+      dispatch(addTweet(newTweet));
+      dispatch(tweetInvisible(false));
+      setInputText("");
+      setInputError("");
+    } else {
+      setInputError("Required");
+    }
+  };
+
+  const handleOnChange = (text) => {
+    setInputText(text);
+    setInputError("");
+  };
+
   return (
-    <Modal animationType="slide" visible={tweetVisible} transparent>
+    <Modal animationType="slide" visible={visible} transparent>
       <View style={styles.inputContainer}>
         <Image
           style={styles.image}
@@ -36,6 +60,7 @@ export default function TweetInput({
           <Text style={styles.textButton}> Tweet </Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.inputError}> {inputError}</Text>
     </Modal>
   );
 }
@@ -78,5 +103,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: "15%",
     height: "60%",
+  },
+  inputError: {
+    color: "red",
   },
 });

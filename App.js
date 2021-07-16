@@ -6,7 +6,8 @@ import NavegationDrawer from "./navegation/NavegationDrawer";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
-
+import { Provider } from "react-redux";
+import store from "./store";
 export default function App() {
   const [loaded] = useFonts({
     RobotoLight: require("./assets/fonts/Roboto-Light.ttf"),
@@ -21,9 +22,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ThemeProvider>
-        <NavegationDrawer />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <NavegationDrawer />
+        </ThemeProvider>
+      </Provider>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -36,4 +39,3 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
   },
 });
-

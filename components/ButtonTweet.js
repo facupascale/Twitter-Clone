@@ -1,23 +1,30 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 import colors from "../colors/colors";
-export default function ButtonTweet({ handleTweetVisible }) {
+import { tweetVisible } from "../store/actions/tweetVisible.actions";
+
+export default function ButtonTweet() {
+  const dispatch = useDispatch();
+
+  const handleTweetVisible = () => {
+    console.log("me tocaste");
+    dispatch(tweetVisible(true));
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handleTweetVisible} style={styles.button}>
-        <Text style={styles.text}> + </Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={handleTweetVisible} style={styles.button}>
+      <Text style={styles.text}> + </Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-  },
   button: {
+    zIndex: 1,
+    position: "absolute",
+    right: 20,
+    bottom: 20,
     backgroundColor: colors.azulMarino,
     borderRadius: 50,
     width: 70,
