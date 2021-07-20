@@ -2,18 +2,24 @@ import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import React from "react";
 import colors from "../colors/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteInvisible } from "../store/actions/deleteVisible.actions";
+import { deletedTweet } from "../store/actions/items.actions";
+export default function ModalDelete() {
+  const dispatch = useDispatch();
+  const modalVisible = useSelector((state) => state.delete.delete);
+  const handlePressDelete = () => {
+    dispatch(deleteInvisible(false));
+    dispatch(deletedTweet(selected.id));
+  };
+  const selected = useSelector((state) => state.tweets.selected) || {};
 
-export default function ModalDelete({
-  modalVisible,
-  itemSelected,
-  handlePressDelete,
-}) {
   return (
     <Modal animationType="slide" visible={modalVisible} transparent>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalMessage}> Are you sure ? </Text>
-          <Text style={styles.modalTitle}> {itemSelected.value} </Text>
+          <Text style={styles.modalTitle}> {selected.value} </Text>
           <TouchableOpacity
             onPress={handlePressDelete}
             style={styles.buttonConfirm}
@@ -74,4 +80,3 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoLight",
   },
 });
-

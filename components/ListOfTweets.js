@@ -6,12 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import colors from "../colors/colors";
-
-export default function ListOfTweets({ handleVisible }) {
+import { deleteVisible } from "../store/actions/deleteVisible.actions";
+import { selectedTweet } from "../store/actions/items.actions";
+export default function ListOfTweets() {
   const tweetList = useSelector((state) => state.tweets.tweets);
+  const dispatch = useDispatch();
+
+  const handleVisible = (id) => {
+    dispatch(deleteVisible(true));
+    dispatch(selectedTweet(id));
+  };
 
   return (
     <FlatList
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
   },
   flatContainer: {
     width: "100%",
-    marginTop: 30,
+    marginTop: 20,
   },
   containerList: {
     width: "100%",
@@ -79,4 +86,3 @@ const styles = StyleSheet.create({
     height: "60%",
   },
 });
-

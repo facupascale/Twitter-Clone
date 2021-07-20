@@ -6,7 +6,6 @@ import ModalDelete from "../components/ModalDelete";
 import TweetInput from "../components/TweetInput";
 import ButtonTweet from "../components/ButtonTweet";
 export default function Home() {
-  const [modalVisible, setModalVisible] = useState(false);
   const [itemSelected, setItemSelected] = useState({});
   const handlePressDelete = () => {
     const id = itemSelected.id;
@@ -14,22 +13,13 @@ export default function Home() {
     setModalVisible(false);
     setItemSelected({});
   };
-
-  const handleVisible = (id) => {
-    setItemSelected(itemList.find((item) => item.id === id));
-    setModalVisible(true);
-  };
   // vamos a poner un modal en el tweet input para solucionarlo asi por ahora
   return (
     <SafeAreaView style={styles.container}>
       <ButtonTweet />
       <TweetInput />
-      <ListOfTweets handleVisible={handleVisible} />
-      <ModalDelete
-        modalVisible={modalVisible}
-        itemSelected={itemSelected}
-        handlePressDelete={handlePressDelete}
-      />
+      <ListOfTweets />
+      <ModalDelete handlePressDelete={handlePressDelete} />
     </SafeAreaView>
   );
 }
@@ -37,5 +27,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    zIndex: 1,
   },
 });

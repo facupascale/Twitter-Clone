@@ -43,36 +43,44 @@ export default function TweetInput() {
 
   return (
     <Modal animationType="slide" visible={visible} transparent>
-      <View style={styles.inputContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/hombre-1.jpg")}
-        />
-        <TextInput
-          placeholder="Whats new...?"
-          style={styles.input}
-          textAlign={"left"}
-          value={inputText}
-          onChangeText={handleOnChange}
-        />
-        <TouchableOpacity style={styles.buttonInput} onPress={handleAddItem}>
-          <Text style={styles.textButton}> Tweet </Text>
-        </TouchableOpacity>
+      <View style={styles.modalContainer}>
+        <View style={styles.inputContainer}>
+          <Image
+            style={styles.image}
+            source={require("../assets/images/hombre-1.jpg")}
+          />
+          <TextInput
+            placeholder="Whats new...?"
+            style={styles.input}
+            textAlign={"left"}
+            value={inputText}
+            onChangeText={handleOnChange}
+          />
+          <TouchableOpacity style={styles.buttonInput} onPress={handleAddItem}>
+            <Text style={styles.textButton}> Tweet </Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.inputError}> {inputError}</Text>
       </View>
-      <Text style={styles.inputError}> {inputError}</Text>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
   inputContainer: {
     borderRadius: 30,
     flexDirection: "row",
+    width: "90%",
+    height: 70,
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "space-around",
-    width: "90%",
-    height: 50,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

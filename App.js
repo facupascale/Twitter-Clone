@@ -3,11 +3,12 @@ import { ThemeProvider } from "./theme/theme-context";
 import AppLoading from "expo-app-loading";
 import Constants from "expo-constants";
 import NavegationDrawer from "./navegation/NavegationDrawer";
-import React from "react";
+import React, { useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import store from "./store";
+
 export default function App() {
   const [loaded] = useFonts({
     RobotoLight: require("./assets/fonts/Roboto-Light.ttf"),
