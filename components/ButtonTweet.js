@@ -1,14 +1,14 @@
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import { useDispatch } from "react-redux";
 import colors from "../colors/colors";
 import { tweetVisible } from "../store/actions/tweetVisible.actions";
+import { useDispatch } from "react-redux";
 
 export default function ButtonTweet() {
   const dispatch = useDispatch();
 
   const handleTweetVisible = () => {
-    console.log("me tocaste");
     dispatch(tweetVisible(true));
   };
 

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 
+import ButtonTweet from "../components/ButtonTweet";
 import ListOfTweets from "../components/ListOfTweets";
 import ModalDelete from "../components/ModalDelete";
 import TweetInput from "../components/TweetInput";
-import ButtonTweet from "../components/ButtonTweet";
+
 export default function Home() {
   const [itemSelected, setItemSelected] = useState({});
   const handlePressDelete = () => {
