@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import React from "react";
 import colors from "../colors/colors";
@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
     zIndex: 1,
     position: "absolute",
     right: 20,
-    bottom: 20,
+    bottom: 120,
     backgroundColor: colors.azulMarino,
     borderRadius: 50,
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",

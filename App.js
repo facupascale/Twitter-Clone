@@ -1,13 +1,14 @@
 import { Platform, SafeAreaView, StyleSheet } from "react-native";
-import { ThemeProvider } from "./theme/theme-context";
+
 import AppLoading from "expo-app-loading";
 import Constants from "expo-constants";
-import NavegationDrawer from "./navegation/NavegationDrawer";
-import React, { useContext } from "react";
-import { StatusBar } from "expo-status-bar";
-import { useFonts } from "expo-font";
+import Navigators from "./navegation/Navegation";
 import { Provider } from "react-redux";
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "./theme/theme-context";
 import store from "./store";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -25,7 +26,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Provider store={store}>
         <ThemeProvider>
-          <NavegationDrawer />
+          <Navigators />
         </ThemeProvider>
       </Provider>
       <StatusBar style="auto" />

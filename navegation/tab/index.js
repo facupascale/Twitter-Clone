@@ -13,7 +13,7 @@ export default function TabNavigator() {
     return (
         <TabStack.Navigator
         initialRoute='Home'
-        screenOptions={{
+        tabBarOptions={{
             showLabel: false,
             style: {
                 ...styles.tabBar,
@@ -27,7 +27,7 @@ export default function TabNavigator() {
                 tabBarIcon: ({focused}) => (
                     <View style={styles.item}>
                         <Ionicons name='md-home' color={focused ? colors.celeste : 'black'} size={24} />
-                        <Text> Home </Text>
+                        <Text style={{fontFamily: 'RobotoLight'}}>Home</Text> 
                     </View>
                 )
             }}/>
@@ -37,8 +37,8 @@ export default function TabNavigator() {
             options={{
                 tabBarIcon: ({focused}) => (
                     <View style={styles.item}>
-                        <Ionicons name='md-profile' color={ focused ? colors.celeste : 'black'} size={24}/>
-                        <Text> Profile </Text>
+                        <Ionicons name='md-person' color={ focused ? colors.celeste : 'black'} size={24}/>
+                        <Text style={{fontFamily: 'RobotoLight'}}> Profile </Text>
                     </View>
                 )
             }}/>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         bottom: 25,
         left: 20,
         right: 20,
-        borderRadius: 15,
+        borderRadius: 50,
         height: 70,
     },
     shadow: {
