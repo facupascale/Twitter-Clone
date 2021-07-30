@@ -1,8 +1,7 @@
-import React, {useState} from "react";
-
 import AuthNavigator from "./auth";
 import DrawerNavigation from "./DrawerNavigation";
 import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 import { useSelector } from "react-redux";
 
 export default function NavegationDrawer() {
@@ -11,9 +10,9 @@ export default function NavegationDrawer() {
 
   return (
     <NavigationContainer>
-      {isLoggedIn 
-      ? <AuthNavigator />
-      : <DrawerNavigation />
+      {isLoggedIn
+      ? <DrawerNavigation />
+      : <AuthNavigator />
       }
     </NavigationContainer>
   );

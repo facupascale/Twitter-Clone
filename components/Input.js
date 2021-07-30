@@ -26,19 +26,19 @@ const Input = props => {
 
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: props.initialValue ? props.initialValue : '',
-        isValid: props.initialValid,
+        isValid: props.initialValid || false,
         touched: false,
     })
 
-    const {onInputChange, id} = props;
+    const {onInputChange = () => {}, id} = props;
 
     useEffect(() => {
         if(inputState.touched) {
-            onInputChange(inputState.value, inputState.isValid)
+            onInputChange(id, inputState.value, inputState.isValid)
         }
-    },[inputState, onInputChange])
+    },[inputState, onInputChange, id])
 
-    const textChangeHandler = text => {
+    const textChangeHandler = (text) => {
     // Patron para validar si el texto tiene la forma de un email
     const emailRegex =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -57,7 +57,7 @@ const Input = props => {
     dispatch({
             type: INPUT_CHANGE,
             value: text,
-            isValid: isValid
+            isValid
         })
     }
 
@@ -69,7 +69,6 @@ const Input = props => {
             <TextInput 
                 {...props}
                 style={styles.input}
-                value={inputState.value}
                 onChangeText={textChangeHandler}
                 onBlur={onBlurHandler}
             />

@@ -1,4 +1,4 @@
-import { URL_AUTH_LOGIN, URL_AUTH_SIGNUP } from '../../constants/database';
+import { URL_AUTH_LOGIN, URL_AUTH_SIGNUP } from '../../constants/Database';
 
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';

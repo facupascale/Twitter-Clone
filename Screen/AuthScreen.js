@@ -1,8 +1,8 @@
-import {Alert, Button, KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native'
-import React,{useCallBack, useEffect, useReducer, useState} from 'react'
+import {Alert, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import React,{ useCallback, useEffect, useReducer, useState } from 'react'
+import { login, signup } from '../store/actions/auth.action'
 
 import Input from '../components/Input'
-import authActions from '../store/actions/auth.action'
 import colors from '../colors/colors'
 import { useDispatch } from 'react-redux'
 
@@ -93,7 +93,7 @@ const AuthScreen = () => {
                     <Input 
                         id='email'
                         label='email'
-                        keyboardType='email-addres'
+                        keyboardType='email-address'
                         required
                         email
                         autoCapitalize='none'
@@ -115,12 +115,12 @@ const AuthScreen = () => {
                     />
                 </View>
                 <View style={styles.footer}>
-                    <View styles={styles.button}>
-                        <Button title='Login' color={colors.celeste} onPress={onLoginHandler} />
-                    </View>
-                    <View styles={styles.button}>
-                        <Button title='SingUp' color='white' onPress={onSignupHandler} />
-                    </View>
+                        <TouchableOpacity style={styles.login} onPress={onLoginHandler}>
+                            <Text style={{color: 'white', fontFamily: 'RobotoBold'}}> Login </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.signup} onPress={onSignupHandler} >
+                            <Text style={{color: 'black', fontFamily: 'RobotoBold'}}> SignUp </Text>
+                        </TouchableOpacity>
                 </View>
             </View>
         </KeyboardAvoidingView>
@@ -147,9 +147,24 @@ const styles = StyleSheet.create({
     },
     footer: {
         marginTop: 24,
+        alignItems: 'center'
     },
-    button: {
-        marginBottom: 8,
+    login: {
+        width: '80%',
+        height: 50,
+        borderRadius: 30,
+        backgroundColor: colors.celeste,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    signup: {
+        width: '80%',
+        height: 50,
+        borderRadius: 30,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
     }
 })
 
