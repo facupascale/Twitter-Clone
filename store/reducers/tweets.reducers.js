@@ -2,11 +2,15 @@ import {
   ADD_TWEET,
   DELETED_TWEET,
   SELECTED_TWEET,
+  ADD_PLACE,
+  LOAD_PLACES,
 } from "../actions/items.actions";
+import Place from '../../models/Place'
 
 const INITIAL_STATE = {
   tweets: [],
   selected: null,
+  places: [],
 };
 
 const TweetReducer = (state = INITIAL_STATE, action) => {
@@ -26,6 +30,24 @@ const TweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         tweets: state.tweets.filter((item) => item.id !== action.payload),
       };
+      case ADD_PLACE:
+        const newPlace = new Place(
+            action.payload.id.toString(),
+            action.payload.title,
+            action.payload.image,
+        )
+        return {
+            ...state,
+            places: state.places.concat(newPlace),
+        };
+    case LOAD_PLACES:
+        return {
+            ...state,
+            places: action.places.map(item => new Place(
+                item.id.toString(),
+                item.title,
+                item.image,
+            ))}
     default:
       return state;
   }

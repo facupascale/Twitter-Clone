@@ -13,12 +13,14 @@ import colors from "../colors/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { addTweet } from "../store/actions/items.actions";
 import { tweetInvisible } from "../store/actions/tweetVisible.actions";
+import ImageSelector from "./ImageSelector";
+import { addPlace } from "../store/actions/items.actions";
 
 export default function TweetInput() {
   const visible = useSelector((state) => state.visible.visible);
   const [inputText, setInputText] = useState("");
   const [inputError, setInputError] = useState("");
-
+  
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
@@ -29,6 +31,7 @@ export default function TweetInput() {
       };
       dispatch(addTweet(newTweet));
       dispatch(tweetInvisible(false));
+      dispatch(addPlace(selectedImage))
       setInputText("");
       setInputError("");
     } else {
@@ -40,6 +43,10 @@ export default function TweetInput() {
     setInputText(text);
     setInputError("");
   };
+
+  const [selectedImage, setSelectedImage] = useState('');
+  const onHandlerImage = path => setSelectedImage(path);
+
 
   return (
     <Modal animationType="slide" visible={visible} transparent>
@@ -56,9 +63,12 @@ export default function TweetInput() {
             value={inputText}
             onChangeText={handleOnChange}
           />
+          <View style={styles.buttonsContainer}>
+            <ImageSelector onImage={onHandlerImage} />
           <TouchableOpacity style={styles.buttonInput} onPress={handleAddItem}>
             <Text style={styles.textButton}> Tweet </Text>
           </TouchableOpacity>
+          </View>
         </View>
         <Text style={styles.inputError}> {inputError}</Text>
       </View>
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignSelf: "center",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -93,17 +103,18 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "60%",
-    height: "100%",
   },
   buttonInput: {
     borderRadius: 10,
     backgroundColor: colors.celeste,
     height: 30,
     justifyContent: "center",
+    width: 100,
   },
   textButton: {
     color: "white",
     fontFamily: "RobotoLight",
+    alignSelf: 'center'
   },
   image: {
     marginLeft: 0,
@@ -114,4 +125,11 @@ const styles = StyleSheet.create({
   inputError: {
     color: "red",
   },
+  buttonsContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 100,
+    height: 100,
+    marginRight: 20,
+  }
 });

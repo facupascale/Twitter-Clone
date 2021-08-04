@@ -39,7 +39,7 @@ const Input = props => {
     },[inputState, onInputChange, id])
 
     const textChangeHandler = (text) => {
-    // Patron para validar si el texto tiene la forma de un email
+    // Patron para validar si el texto tiene la forma de un email 
     const emailRegex =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isValid = true;
@@ -56,8 +56,8 @@ const Input = props => {
     
     dispatch({
             type: INPUT_CHANGE,
-            value: text,
-            isValid
+            value: text, 
+            isValid 
         })
     }
 

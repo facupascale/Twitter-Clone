@@ -11,8 +11,10 @@ import React from "react";
 import colors from "../colors/colors";
 import { deleteVisible } from "../store/actions/deleteVisible.actions";
 import { selectedTweet } from "../store/actions/items.actions";
+
 export default function ListOfTweets() {
-  const tweetList = useSelector((state) => state.tweets.tweets);
+  const tweetList = useSelector((state) => state.tweets.tweets)
+  const tweetImage = useSelector((state) => state.tweets.places.newPlace)
   const dispatch = useDispatch();
 
   const handleVisible = (id) => {
@@ -31,12 +33,13 @@ export default function ListOfTweets() {
               style={styles.image}
               source={require("../assets/images/hombre-1.jpg")}
             />
+            <Image source={tweetImage} />
             <Text style={styles.itextDelete}> {data.item.value} </Text>
             <TouchableOpacity
               onPress={() => handleVisible(data.item.id)}
               style={styles.buttonDelete}
             >
-              <Text style={styles.buttonText}> X </Text>
+              <Text style={{color: 'white'}}> X </Text>
             </TouchableOpacity>
           </View>
         );
@@ -46,10 +49,6 @@ export default function ListOfTweets() {
 }
 
 const styles = StyleSheet.create({
-  buttonText: {
-    color: "white",
-    fontSize: 15,
-  },
   flatContainer: {
     width: "100%",
     marginTop: 20,
@@ -67,8 +66,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
   },
   buttonDelete: {
-    width: 33,
-    height: 40,
+    width: 35,
+    height: 35,
     backgroundColor: colors.celeste,
     borderRadius: 5,
     marginRight: 5,
