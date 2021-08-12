@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 import React, { useState } from "react";
 import colors from "../colors/colors";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,11 +15,11 @@ import { tweetInvisible } from "../store/actions/tweetVisible.actions";
 import ImageSelector from "./ImageSelector";
 import { addPlace } from "../store/actions/items.actions";
 
-export default function TweetInput() {
+export default function TweetInput(props) {
+  const {location} = props
   const visible = useSelector((state) => state.visible.visible);
   const [inputText, setInputText] = useState("");
   const [inputError, setInputError] = useState("");
-  
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
@@ -28,12 +27,12 @@ export default function TweetInput() {
       const newTweet = {
         id: Math.random().toString(),
         value: inputText,
-      };
+      }
       dispatch(addTweet(newTweet));
-      dispatch(tweetInvisible(false));
-      dispatch(addPlace(selectedImage))
-      setInputText("");
-      setInputError("");
+      dispatch(tweetInvisible(false)); 
+      dispatch(addPlace(selectedImage, inputText, location))
+      setInputText("")
+      setInputError("") 
     } else {
       setInputError("Required");
     }
@@ -45,7 +44,7 @@ export default function TweetInput() {
   };
 
   const [selectedImage, setSelectedImage] = useState('');
-  const onHandlerImage = path => setSelectedImage(path);
+  const onHandlerImage = path => {setSelectedImage(path)};
 
 
   return (

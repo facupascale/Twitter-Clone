@@ -17,7 +17,6 @@ export default function ImageSelector (props) {
         );
         return false;
         }
-
         return true;
     }
 
@@ -30,7 +29,6 @@ export default function ImageSelector (props) {
         aspect: [16,9],
         quality: 0.8,
     });
-
     setPickedUri(image.uri);
     props.onImage(image.uri);
     };

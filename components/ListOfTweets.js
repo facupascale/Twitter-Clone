@@ -14,7 +14,8 @@ import { selectedTweet } from "../store/actions/items.actions";
 
 export default function ListOfTweets() {
   const tweetList = useSelector((state) => state.tweets.tweets)
-  const tweetImage = useSelector((state) => state.tweets.places.newPlace)
+  const tweetImage = useSelector((state) => state.tweets.places)
+  console.log(tweetImage, 'tweetimage')
   const dispatch = useDispatch();
 
   const handleVisible = (id) => {
@@ -25,7 +26,7 @@ export default function ListOfTweets() {
   return (
     <FlatList
       style={styles.flatContainer}
-      data={tweetList}
+      data={tweetImage}
       renderItem={(data) => {
         return (
           <View style={styles.containerList}>
@@ -33,12 +34,13 @@ export default function ListOfTweets() {
               style={styles.image}
               source={require("../assets/images/hombre-1.jpg")}
             />
-            <Image source={tweetImage} />
-            <Text style={styles.itextDelete}> {data.item.value} </Text>
+            <Image source={{uri: data.item.image}} style={styles.imageFoto} />
+            <Text style={styles.itextDelete}> {data.item.title ? data.item.title : data.item.value}  </Text>
+            <Text style={styles.textDelete}> {data.item.location}</Text>
+            {console.log(data.item.location, 'TEXT LOCATION')}
             <TouchableOpacity
               onPress={() => handleVisible(data.item.id)}
-              style={styles.buttonDelete}
-            >
+              style={styles.buttonDelete} >
               <Text style={{color: 'white'}}> X </Text>
             </TouchableOpacity>
           </View>
@@ -84,4 +86,9 @@ const styles = StyleSheet.create({
     width: "15%",
     height: "60%",
   },
+  imageFoto: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  }
 });

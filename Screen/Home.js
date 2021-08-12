@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 
 import ButtonTweet from "../components/ButtonTweet";
 import ListOfTweets from "../components/ListOfTweets";
 import ModalDelete from "../components/ModalDelete";
 import TweetInput from "../components/TweetInput";
+import * as Location from 'expo-location'
+
 
 export default function Home() {
   const [itemSelected, setItemSelected] = useState({});
@@ -14,11 +16,35 @@ export default function Home() {
     setModalVisible(false);
     setItemSelected({});
   };
-  // vamos a poner un modal en el tweet input para solucionarlo asi por ahora
+
+  const [location, setLocation] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
+  const text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+  console.log(text, 'ENTRE')
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+      let result = await Location.getCurrentPositionAsync({});
+
+      setLocation(result);
+    })();
+  }, []);
+  
+
   return (
     <SafeAreaView style={styles.container}>
       <ButtonTweet />
-      <TweetInput />
+      <TweetInput location={text}/>
       <ListOfTweets />
       <ModalDelete handlePressDelete={handlePressDelete} />
     </SafeAreaView>

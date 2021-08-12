@@ -4,11 +4,20 @@ import AppLoading from "expo-app-loading";
 import Constants from "expo-constants";
 import Navigators from "./navegation/Navegation";
 import { Provider } from "react-redux";
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "./theme/theme-context";
 import store from "./store";
 import { useFonts } from "expo-font";
+import { init } from './db';
+import * as Location from 'expo-location'
+
+init()
+  .then(() => console.log('Database initialized'))
+  .catch((err) => {
+    console.log('Database failed to connect');
+    console.log(err.message)
+  });
 
 export default function App() {
   const [loaded] = useFonts({
@@ -21,6 +30,9 @@ export default function App() {
   if (!loaded) {
     return <AppLoading />;
   }
+
+
+
 
   return (
     <SafeAreaView style={styles.container}>

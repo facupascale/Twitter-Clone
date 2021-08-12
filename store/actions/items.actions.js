@@ -9,19 +9,19 @@ export const SELECTED_TWEET = "SELECTED_TWEET";
 export const DELETED_TWEET = "DELETED_TWEET";
 
 export const addTweet = (tweet) => ({
-  type: ADD_TWEET,
-  payload: tweet,
-});
+    type: ADD_TWEET,
+    payload: tweet,
+    });
 export const selectedTweet = (tweet) => ({
-  type: SELECTED_TWEET,
-  payload: tweet,
+    type: SELECTED_TWEET,
+    payload: tweet,
 });
 export const deletedTweet = (tweet) => ({
-  type: DELETED_TWEET,
-  payload: tweet,
+    type: DELETED_TWEET,
+    payload: tweet,
 });
 
-export const addPlace = (image) => {
+export const addPlace = (image, title, location) => {
     return async dispatch => {
         const fileName = image.split('/').pop()
         const Path = FileSystem.documentDirectory + fileName;
@@ -33,17 +33,18 @@ export const addPlace = (image) => {
             });
 
             const result = await insertAddress(
+                title,
                 Path,
                 'Address',
                 13.5,
                 10.5,
             );
 
-            console.log(result)
+            console.log(result, 'soy result')
 
             dispatch({
                 type: ADD_PLACE,
-                payload: { id: result.insertId, image: Path },
+                payload: { id: result.insertId, image: Path, title: title, location: location},
             });
         } catch (err) {
             console.log(err.mesage);
