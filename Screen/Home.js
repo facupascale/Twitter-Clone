@@ -10,6 +10,7 @@ import * as Location from 'expo-location'
 
 export default function Home() {
   const [itemSelected, setItemSelected] = useState({});
+
   const handlePressDelete = () => {
     const id = itemSelected.id;
     setItemList(itemList.filter((item) => item.id !== id));
@@ -19,28 +20,25 @@ export default function Home() {
 
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
-  const text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-  console.log(text, 'ENTRE')
-
+  
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-      let result = await Location.getCurrentPositionAsync({});
-
-      setLocation(result);
+      if(status !== 'granted')
+      {setErrorMsg('Permission to access location was denied');
+      return;}
+      var result = await Location.getCurrentPositionAsync({});
+      setLocation(result)
     })();
   }, []);
   
-
+  
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text =  location;
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ButtonTweet />

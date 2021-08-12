@@ -35,7 +35,7 @@ const TweetReducer = (state = INITIAL_STATE, action) => {
             action.payload.id.toString(),
             action.payload.title,
             action.payload.image,
-            action.payload.location
+            action.payload.address
         )
         return {
             ...state,
@@ -48,7 +48,7 @@ const TweetReducer = (state = INITIAL_STATE, action) => {
                 item.id.toString(),
                 item.title,
                 item.image,
-                item.location,
+                item.address,
             ))}
     default:
       return state;

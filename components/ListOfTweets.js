@@ -15,7 +15,6 @@ import { selectedTweet } from "../store/actions/items.actions";
 export default function ListOfTweets() {
   const tweetList = useSelector((state) => state.tweets.tweets)
   const tweetImage = useSelector((state) => state.tweets.places)
-  console.log(tweetImage, 'tweetimage')
   const dispatch = useDispatch();
 
   const handleVisible = (id) => {
@@ -36,7 +35,7 @@ export default function ListOfTweets() {
             />
             <Image source={{uri: data.item.image}} style={styles.imageFoto} />
             <Text style={styles.itextDelete}> {data.item.title ? data.item.title : data.item.value}  </Text>
-            <Text style={styles.textDelete}> {data.item.location}</Text>
+            <Text style={styles.textDelete}> {data.item.address}</Text>
             {console.log(data.item.location, 'TEXT LOCATION')}
             <TouchableOpacity
               onPress={() => handleVisible(data.item.id)}
