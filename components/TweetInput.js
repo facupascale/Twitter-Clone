@@ -23,12 +23,7 @@ export default function TweetInput(props) {
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
-    if (inputText) {
-      const newTweet = {
-        id: Math.random().toString(),
-        value: inputText,
-      }
-      dispatch(addTweet(newTweet));
+    if (inputText) {;
       dispatch(tweetInvisible(false)); 
       dispatch(addPlace(selectedImage, inputText, location))
       setInputText("")
@@ -48,7 +43,13 @@ export default function TweetInput(props) {
 
 
   return (
-    <Modal animationType="slide" visible={visible} transparent>
+    <Modal animationType="slide" 
+      visible={visible} 
+      transparent={true}
+      onRequestClose={() => {
+        dispatch(tweetInvisible(false));
+      }}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.inputContainer}>
           <Image
@@ -62,12 +63,7 @@ export default function TweetInput(props) {
             value={inputText}
             onChangeText={handleOnChange}
           />
-          <View style={styles.buttonsContainer}>
-            <ImageSelector onImage={onHandlerImage} />
-          <TouchableOpacity style={styles.buttonInput} onPress={handleAddItem}>
-            <Text style={styles.textButton}> Tweet </Text>
-          </TouchableOpacity>
-          </View>
+            <ImageSelector onImage={onHandlerImage} handleAddItem={handleAddItem}/>
         </View>
         <Text style={styles.inputError}> {inputError}</Text>
       </View>
@@ -81,15 +77,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   inputContainer: {
     borderRadius: 30,
     flexDirection: "row",
     width: "90%",
-    height: 70,
+    height: 90,
     alignSelf: "center",
     alignItems: "center",
-    justifyContent: 'space-around',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -101,22 +98,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   input: {
-    width: "60%",
+    width: '40%',
+    height: '50%',
   },
   buttonInput: {
     borderRadius: 10,
     backgroundColor: colors.celeste,
     height: 30,
     justifyContent: "center",
-    width: 100,
-  },
-  textButton: {
-    color: "white",
-    fontFamily: "RobotoLight",
-    alignSelf: 'center'
+    width: 60,
+    marginTop: 5,
   },
   image: {
-    marginLeft: 0,
     resizeMode: "contain",
     width: "15%",
     height: "60%",
@@ -124,11 +117,4 @@ const styles = StyleSheet.create({
   inputError: {
     color: "red",
   },
-  buttonsContainer: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 100,
-    height: 100,
-    marginRight: 20,
-  }
 });

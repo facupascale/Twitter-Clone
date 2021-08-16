@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import React from "react";
 import colors from "../colors/colors";
@@ -13,9 +13,9 @@ export default function ButtonTweet() {
   };
 
   return (
-    <TouchableOpacity onPress={handleTweetVisible} style={styles.button}>
-      <Text style={styles.text}> + </Text>
-    </TouchableOpacity>
+      <TouchableOpacity onPress={handleTweetVisible} style={styles.button}>
+        <Text style={styles.text}> + </Text>
+      </TouchableOpacity>
   );
 }
 
@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   button: {
     zIndex: 1,
     position: "absolute",
-    right: 20,
-    bottom: 120,
+    bottom: '14%',
     backgroundColor: colors.azulMarino,
     borderRadius: 50,
-    width: 75,
-    height: 75,
+    width: '90%',
+    height: '5%',
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

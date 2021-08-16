@@ -10,7 +10,6 @@ import { ThemeProvider } from "./theme/theme-context";
 import store from "./store";
 import { useFonts } from "expo-font";
 import { init } from './db';
-import * as Location from 'expo-location'
 
 init()
   .then(() => console.log('Database initialized'))

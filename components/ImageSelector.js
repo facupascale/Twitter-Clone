@@ -5,6 +5,7 @@ import * as Permissions from 'expo-permissions';
 import colors from '../colors/colors';
 
 export default function ImageSelector (props) {
+    const {handleAddItem} = props
     const [pickedUri, setPickedUri] = useState();
 
     const verifyPermissions = async () => {
@@ -36,14 +37,18 @@ export default function ImageSelector (props) {
     return (
     <View style={styles.container}>
         <View style={styles.preview}>
-            {pickedUri
-            ? <Image style={styles.image} source={{ uri: pickedUri }} />
-            : <Text></Text> 
+            {pickedUri && 
+            <Image style={styles.image} source={{ uri: pickedUri }} />
             }
         </View>
-        <TouchableOpacity style={styles.buttonInput} onPress={handlerTakeImage}>
-            <Text style={styles.textButton}> Tomar Foto </Text>
-        </TouchableOpacity>
+        <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.buttonInput} onPress={handlerTakeImage}>
+                <Text style={styles.textButton}> Tomar Foto </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonInput} onPress={handleAddItem}>
+                <Text style={styles.textButton}> Tweet </Text>
+            </TouchableOpacity>
+        </View>
     </View>
     )
     }
@@ -52,27 +57,36 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: '20%',
+        marginRight: 10,
     },
     preview: {
-        width: '30%',
-        height: 50,
-        marginBottom: 10,
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
+        resizeMode: 'contain',
         width: '100%',
         height: '100%',
+        marginRight: 10,
     },
     buttonInput: {
         borderRadius: 10,
         backgroundColor: colors.celeste,
-        height: 30,
-        justifyContent: "center",
+        height: 35,
     },
     textButton: {
         color: "white",
-        fontFamily: "RobotoLight",
+        fontFamily: "RobotoBold",
+        textAlign: 'center',
     },
+    buttonsContainer: {
+        width: 70,
+        height: 80,
+        alignContent: 'space-around',
+        justifyContent: 'space-around',
+    }
 });
 

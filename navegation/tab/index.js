@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 const TabStack = createBottomTabNavigator()
 
 export default function TabNavigator() {
+
     return (
         <TabStack.Navigator
         initialRoute='Home'

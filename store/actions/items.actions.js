@@ -4,20 +4,14 @@ import { insertAddress, fetchAddress } from '../../db';
 
 export const ADD_PLACE = 'ADD_PLACE';
 export const LOAD_PLACES = 'LOAD_PLACES';
-export const ADD_TWEET = "ADD_TWEET";
-export const SELECTED_TWEET = "SELECTED_TWEET";
-export const DELETED_TWEET = "DELETED_TWEET";
+export const DELETE_PLACE = 'DELETE_PLACE'
 
-export const addTweet = (tweet) => ({
-    type: ADD_TWEET,
-    payload: tweet,
-    });
-export const selectedTweet = (tweet) => ({
-    type: SELECTED_TWEET,
+export const loadPlaces = (tweet) => ({
+    type: LOAD_PLACES,
     payload: tweet,
 });
-export const deletedTweet = (tweet) => ({
-    type: DELETED_TWEET,
+export const deletedPlace = (tweet) => ({
+    type: DELETE_PLACE,
     payload: tweet,
 });
 
@@ -27,12 +21,9 @@ export const addPlace = (image, title, location) => {
     return async dispatch => {
         const fileName = image.split('/').pop()
         const Path = FileSystem.documentDirectory + fileName;
-        console.log(location, 'LOCATION ACTIONS')
         const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}&key=${key}`)
-        console.log(response, 'SOY RESPONSE ACTION')
         const resData = await response.json();
         const address = resData.results[0].formatted_address;
-        console.log(resData, 'RESDATA')
         try {
             await FileSystem.moveAsync({
                 from: image,
@@ -47,8 +38,6 @@ export const addPlace = (image, title, location) => {
                 10.5,
             );
 
-            console.log(result, 'soy result')
-
             dispatch({
                 type: ADD_PLACE,
                 payload: { id: result.insertId, image: Path, title: title, address: address},
@@ -60,7 +49,7 @@ export const addPlace = (image, title, location) => {
     }
 }
 
-export const loadPlaces = () => {
+/* export const loadPlaces = () => {
     return async dispatch => {
         try {
             const result = await fetchAddress();
@@ -70,4 +59,4 @@ export const loadPlaces = () => {
             throw error;
         }
     }
-}
+} */

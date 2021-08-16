@@ -4,13 +4,13 @@ import React from "react";
 import colors from "../colors/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteInvisible } from "../store/actions/deleteVisible.actions";
-import { deletedTweet } from "../store/actions/items.actions";
+import { deletedPlace } from "../store/actions/items.actions";
 export default function ModalDelete() {
   const dispatch = useDispatch();
   const modalVisible = useSelector((state) => state.delete.delete);
   const handlePressDelete = () => {
     dispatch(deleteInvisible(false));
-    dispatch(deletedTweet(selected.id));
+    dispatch(deletedPlace(selected.id));
   };
   const selected = useSelector((state) => state.tweets.selected) || {};
 
@@ -19,7 +19,7 @@ export default function ModalDelete() {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalMessage}> Are you sure ? </Text>
-          <Text style={styles.modalTitle}> {selected.value} </Text>
+          <Text style={styles.modalTitle}> {selected.title} </Text>
           <TouchableOpacity
             onPress={handlePressDelete}
             style={styles.buttonConfirm}

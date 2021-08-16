@@ -10,16 +10,15 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import colors from "../colors/colors";
 import { deleteVisible } from "../store/actions/deleteVisible.actions";
-import { selectedTweet } from "../store/actions/items.actions";
+import { loadPlaces} from "../store/actions/items.actions";
 
 export default function ListOfTweets() {
-  const tweetList = useSelector((state) => state.tweets.tweets)
   const tweetImage = useSelector((state) => state.tweets.places)
   const dispatch = useDispatch();
 
   const handleVisible = (id) => {
     dispatch(deleteVisible(true));
-    dispatch(selectedTweet(id));
+    dispatch(loadPlaces(id));
   };
 
   return (
@@ -29,19 +28,23 @@ export default function ListOfTweets() {
       renderItem={(data) => {
         return (
           <View style={styles.containerList}>
-            <Image
-              style={styles.image}
-              source={require("../assets/images/hombre-1.jpg")}
-            />
-            <Image source={{uri: data.item.image}} style={styles.imageFoto} />
-            <Text style={styles.itextDelete}> {data.item.title ? data.item.title : data.item.value}  </Text>
-            <Text style={styles.textDelete}> {data.item.address}</Text>
-            {console.log(data.item.location, 'TEXT LOCATION')}
-            <TouchableOpacity
-              onPress={() => handleVisible(data.item.id)}
-              style={styles.buttonDelete} >
-              <Text style={{color: 'white'}}> X </Text>
-            </TouchableOpacity>
+            <View >
+              <View style={styles.textImage}>
+                <Image
+                  style={styles.image}
+                  source={require("../assets/images/hombre-1.jpg")}
+                />
+                <Text style={styles.itextDelete}> {data.item.title}  </Text>
+                <Image source={{uri: data.item.image}} style={styles.imageFoto} />
+                <TouchableOpacity
+                  onPress={() => handleVisible(data.item.id)}
+                  style={styles.buttonDelete} >
+                  <Text style={{color: 'white'}}> X </Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.textLocation}> {data.item.address}</Text>
+              {console.log(data.item.location, 'TEXT LOCATION')}
+            </View>
           </View>
         );
       }}
@@ -52,11 +55,11 @@ export default function ListOfTweets() {
 const styles = StyleSheet.create({
   flatContainer: {
     width: "100%",
+    height: '20%',
     marginTop: 20,
   },
   containerList: {
     width: "100%",
-    height: 50,
     flexDirection: "row",
     alignSelf: "center",
     alignItems: "center",
@@ -86,8 +89,22 @@ const styles = StyleSheet.create({
     height: "60%",
   },
   imageFoto: {
+    resizeMode: 'contain',
     width: 70,
     height: 70,
     borderRadius: 35,
+  },
+  textImage: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  textLocation: {
+    fontSize: 10,
+    fontFamily: 'RobotoLightItalic',
+    color: 'grey',
+    opacity: 0.5,
+    marginVertical: 10,
+    textAlign: 'center',
   }
 });

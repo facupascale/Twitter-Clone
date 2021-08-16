@@ -29,6 +29,7 @@ export default function Home() {
       return;}
       var result = await Location.getCurrentPositionAsync({});
       setLocation(result)
+      console.log(location)
     })();
   }, []);
   
